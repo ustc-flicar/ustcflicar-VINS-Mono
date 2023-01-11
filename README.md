@@ -1,3 +1,21 @@
+# Hello
+#### This is a [VINS-Mono](https://github.com/HKUST-Aerial-Robotics/VINS-Mono) fork for USTC FLICAR Dataset
+
+**We add extra script and configuration files to quickly run the experiments on USTC FLICAR dataset.**
+
+After compiling the project correctly on your computer, you can run it as the follow step:
+Open three terminals, launch the vins_estimator , rviz and play the bag file respectively. Take HF001 for example.
+```
+    roslaunch vins_estimator vins_rviz.launch
+    roslaunch vins_estimator ustcflicar.launch 
+    rosbag play YOUR_PATH_TO_DATASET/HF001.bag 
+```
+The configuration file is saved in the *./config/ustcflicar/* path. *xb3.yaml* and *hik.yaml* are the configuration files of the two cameras (Hikvision1 and Bumblebee-XB3-Center) respectively. If you need to use the corresponding camera, copy the content of the configuration file to *ustcflicar.yaml*.
+
+<font color="red">Note:</font> When we collect data, we start the sensors in order. Before starting a sensor, program need to check whether the previous sensor is working properly. So at the beginning of the rosbag, not all sensors have finished starting. When using a sensor fusion algorithm (such as camera-IMU), you can play rosbag for a period of time (about 10s), and then start the algorithm after all the sensors are started to prevent initialization errors.
+
+*If you use the USTC FLICAR dataset in your work, please cite our work using the BibTex code on the dataset [website](https://ustc-flicar.github.io/). Please also cite VINS-Mono publications below.*
+
 # VINS-Mono
 ## A Robust and Versatile Monocular Visual-Inertial State Estimator
 

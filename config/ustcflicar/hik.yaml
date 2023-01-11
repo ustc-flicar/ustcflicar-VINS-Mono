@@ -3,7 +3,7 @@
 #common parameters
 imu_topic: "/imu/data"
 image_topic: "/hik_camera/image_raw"
-output_path: "/home/wangzm/guiji"
+output_path: "/home/wangzm/guiji"  # change to your own path
 
 #camera calibration 
 model_type: PINHOLE
@@ -11,18 +11,18 @@ camera_name: camera
 image_width: 1440
 image_height: 1080
 distortion_parameters:
-   k1: 0.26
-   k2: 0.14
+   k1: -0.0423
+   k2: 0.0812
    p1: 0
    p2: 0
 projection_parameters:
-   fx: 1805
-   fy: 1804
-   cx: 728
-   cy: 545
+   fx: 1841.236
+   fy: 1840.524
+   cx: 727.914
+   cy: 545.179
 
 # Extrinsic parameter between IMU and Camera.
-estimate_extrinsic: 1   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
+estimate_extrinsic: 0   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
                         # 1  Have an initial guess about extrinsic parameters. We will optimize around your initial guess.
                         # 2  Don't know anything about extrinsic parameters. You don't need to give R,T. We will try to calibrate it. Do some rotation movement at beginning.                        
 #If you choose 0 or 1, you should write down the following matrix.
@@ -35,15 +35,12 @@ extrinsicRotation: !!opencv-matrix
           -0.99962978, -0.02090466,  0.01741543,
           0.02077841, -0.99975672, -0.0073994]
    
-#   [ 0.00723699, -0.0241161,   0.99968297,
-#           -0.99995591, -0.00615698,  0.00709043,
-#           0.00598404, -0.9996902,  -0.0241596]
 #Translation from camera frame to imu frame, imu^T_cam
 extrinsicTranslation: !!opencv-matrix
    rows: 3
    cols: 1
    dt: d
-   data: [0.04409697, -0.09474854, 0.01833216]   # [0.05073227, -0.09052156, 0.04535453]
+   data: [0.04409697, -0.09474854, 0.01833216]  
 
 #feature traker paprameters
 max_cnt: 150            # max feature number in feature tracking
@@ -68,14 +65,14 @@ g_norm: 9.80254751   # gravity magnitude
 
 #loop closure parameters
 loop_closure: 1                    # start loop closure
-load_previous_pose_graph: 0        # load and reuse previous pose graph; load from 'pose_graph_save_path'
+load_previous_pose_graph: 1        # load and reuse previous pose graph; load from 'pose_graph_save_path'
 fast_relocalization: 0             # useful in real-time and large project
 pose_graph_save_path: "/home/wangzm/guiji" # save and load path
 
 #unsynchronization parameters
 estimate_td: 1                      # online estimate time offset between camera and imu
-td: 0.00                           # initial value of time offset. unit: s. readed image clock + td = real image clock (IMU clock)
-
+td: 0.005                           # initial value of time offset. unit: s. readed image clock + td = real image clock (IMU clock)
+#for hik camera, when use night sequence the expose time of camera is 30000us, when it is day time the expose time of camera is 5000us 
 
 
 #rolling shutter parameters
